@@ -1,3 +1,22 @@
 {
-  "name": "Chat"
+	"name": "chatIos",
+	"version": "0.0.1",
+	"description": "A sample nodejs app for chating",
+	"scripts": {
+		"start": "node app.js"
+	},
+	"dependencies": {
+		"jade": "1.1.4"	,
+		"express": "*",
+                "socket.io": "^1.3.5",
+                "body-parser":"*",
+                "mongoose":"*",
+                "apn":"*",
+                "socket.io-client":"*",
+                "q":"*"
+	},
+	"engines": {
+		"node": "0.10.*"
+	},
+	"repository": {}
 }

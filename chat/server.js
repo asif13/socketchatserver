@@ -4,19 +4,27 @@
   var server = require('http').Server(app);
   var io = require('socket.io')(server);
   var port = process.env.PORT || 80;
-  
- server.listen(2015);
+  var userRoute = require('./routes/user');
+  var mongoose = require('mongoose');
+  var mongoUrl = "localhost:27017/chatDatabase";
+  var bodyParser = require('body-parser');
+
+  mongoose.connect(mongoUrl);
+
+
   // Routing
   app.use('/js',  express.static(__dirname + '/public/js'));
   app.use('/css', express.static(__dirname + '/public/css'));
   app.use(express.static(__dirname + '/public'));
-  
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: false}));
   // Chatroom
   
   // usernames which are currently connected to the chat
   var usernames = {};
   var numUsers = 0;
-  
+
+  //Socket module
   io.on('connection', function (socket) {
     var addedUser = false;
   console.log('connection on ----')
@@ -81,5 +89,24 @@
       }
     });
   });
-  
+
+// app routes 
+var router = express.Router();
+app.use('/api', router);
+
+// router.post('/user', function(req, res) {
+//   console.log(req);
+//   formBody(req, {}, send)
+
+//     res.json({ message: 'hooray! welcome to our api!' });   
+// });
+
+router.post('/usersLastId',userRoute.getLastDocumentId);
+
+
+router.post('/user',userRoute.insertUser);
+
+
+// server.listen(8080);
+server.listen(2015);
   

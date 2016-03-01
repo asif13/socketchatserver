@@ -6,7 +6,7 @@
   var port = process.env.PORT || 80;
   var userRoute = require('./routes/user');
   var mongoose = require('mongoose');
-  var mongoUrl = "localhost:27017/chatDatabase";
+  var mongoUrl = "localhost:27017/chatDb";
   var bodyParser = require('body-parser');
 
   mongoose.connect(mongoUrl);
@@ -17,7 +17,7 @@
   app.use('/css', express.static(__dirname + '/public/css'));
   app.use(express.static(__dirname + '/public'));
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended: false}));
+  app.use(bodyParser.urlencoded({extended: true}));
   // Chatroom
   
   // usernames which are currently connected to the chat
@@ -94,17 +94,10 @@
 var router = express.Router();
 app.use('/api', router);
 
-// router.post('/user', function(req, res) {
-//   console.log(req);
-//   formBody(req, {}, send)
-
-//     res.json({ message: 'hooray! welcome to our api!' });   
-// });
-
-router.post('/usersLastId',userRoute.getLastDocumentId);
-
-
+ 
 router.post('/user',userRoute.insertUser);
+ 
+router.post('/signupUser',userRoute.signupUser);
 
 
 // server.listen(8080);

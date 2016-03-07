@@ -3,7 +3,18 @@ var express = require('express'),
     morgan = require('morgan'),
     log = require('./log'),
     bodyParser = require('body-parser'),
-    app = express();
+    app = express(),
+    router = express.Router(),
+    userRoute = require('./routes/user'),
+    mongoose = require('mongoose'),
+    mongoUrl = "localhost:27017/chatDb";
+mongoose.connect(mongoUrl);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+//app.use('/api', router);
+//router.post('/user',userRoute.insertUser);
+app.post('/signupUser',userRoute.signupUser);
+
 
 // Apache-style logging for all incoming requests (except static files above)
 app.use(function (req, res, next) {
@@ -85,9 +96,5 @@ app.use(function (req, res) {
         error: 'Resource not found'
     });
 });
-app.use('/js',  express.static(__dirname + '/public/js'));
-app.use('/css', express.static(__dirname + '/public/css'));
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+
 module.exports = app;

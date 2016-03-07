@@ -1,6 +1,6 @@
 var userModel = require('../Schema').userModel;
 var fs = require('fs');
-var server = require('../server')
+var server = require('../server_new')
 
 exports.insertUser = function(req,res){
 	var user = req.body;
@@ -23,23 +23,20 @@ exports.insertUser = function(req,res){
 exports.signupUser = function(req,res){
 	var user = req.body;
 	var username = user["username"];
-	console.log(user["username"]);
-	userModel.findOne({username:username},function(err, docs){
-		if(err){
-			console.log(err);
-			// return callback(err, null);
-		}
+  	userModel.findOne({username:username},function(err, docs){
+
 		if (!err && docs){
+			console.log("1");
 			console.log(docs["password"]);
 			if (docs["password"] == user["password"]){
+				console.log("2");
 				console.log("user logged in");
 				res.json(res.statusCode);
-
-			}
+ 			}
+		}
 			else
 			{
-				console.log("bad user");
-				new userModel({
+ 				new userModel({
 					username:user["username"],
 					password:user["password"],
 					latitude:user["latitude"],
@@ -53,12 +50,9 @@ exports.signupUser = function(req,res){
 						console.log("user signed up");
 						res.json(res.statusCode);
 					}
-				})
+				});
 			}
-		}
-		else{
-			console.log("err");
-		}
+
 	});
 
 }

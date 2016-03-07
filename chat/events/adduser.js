@@ -6,8 +6,7 @@ var numUsers = 0;
 module.exports = function (sock) {
     // when the client emits 'add user', this listens and executes
     sock.on('add user', function (username) {
-        console.log('user added');
-
+        console.log('user added %s',username);
         // we store the username in the socket session for this client
         sock.username = username;
 
@@ -24,8 +23,6 @@ module.exports = function (sock) {
             numUsers: numUsers
         });
     });
-
-
     return function (username) {
 
     };

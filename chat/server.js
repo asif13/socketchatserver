@@ -7,10 +7,9 @@
   var userRoute = require('./routes/user');
   var mongoose = require('mongoose');
   var mongoUrl = "localhost:27017/chatDb";
-  var bodyParser = require('body-parser');
-
   mongoose.connect(mongoUrl);
 
+  var bodyParser = require('body-parser');
 
   // Routing
   app.use('/js',  express.static(__dirname + '/public/js'));

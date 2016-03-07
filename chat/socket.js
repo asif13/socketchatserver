@@ -18,7 +18,7 @@ module.exports = function (app) {
         socks[sock.id] = sock;
 
         sock.on('adduser', require('./events/adduser')(sock));
-        //sock.on('new_conv', require('./events/new_conv')(sock));
+        sock.on('new_conv', require('./events/newmessage')(sock));
         //sock.on('new_msg', require('./events/new_msg')(sock, sockById));
         //sock.on('msg_receipt', require('./events/msg_receipt')(sock));
         //sock.on('conv_history', require('./events/conv_history')(sock, sockById));

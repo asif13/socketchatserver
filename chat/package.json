@@ -8,6 +8,7 @@
 	"dependencies": {
 		"jade": "1.1.4"	,
 		"express": "*",
+		"geolib":"*",
 		"socket.io": "^1.3.5",
 		"body-parser":"*",
 		"mongoose":"*",

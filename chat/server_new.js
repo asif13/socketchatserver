@@ -1,25 +1,43 @@
 var express = require('express'),
+
     onResponse = require('on-response'),
+
     morgan = require('morgan'),
+
     log = require('./log'),
+
     bodyParser = require('body-parser'),
+
     app = express(),
+
     router = express.Router(),
+
     userRoute = require('./routes/user'),
+
+    roomRoute = require('./routes/rooms'),
+
     mongoose = require('mongoose'),
+
     mongoUrl = "localhost:27017/chatDb";
+
 mongoose.connect(mongoUrl);
+
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: true}));
-//app.use('/api', router);
-//router.post('/user',userRoute.insertUser);
+
 app.post('/signupUser',userRoute.signupUser);
 
+//app.post('/addUserToARoom',roomRoute.addUserToARoom);
 
 // Apache-style logging for all incoming requests (except static files above)
+
 app.use(function (req, res, next) {
+
     onResponse(req, res, function () {
+
         // Default log level is 'debug'
+
         var level = 'debug';
 
         // If response status is 40X, log level becomes 'warn'
